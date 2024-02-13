@@ -1,5 +1,7 @@
 using API.Data;
 using API.Entities;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Repositories
 {
@@ -15,10 +17,17 @@ namespace API.Repositories
             _dataContext = dataContext;
         }
         #endregion
-        public List<AppUser> GetUsers()
+        
+        #region FUNCTIONS
+        public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
         {
-            List<AppUser> users = _dataContext.Users.ToList();
-            return users;
+            return await _dataContext.Users.ToListAsync();
         }
+
+        public async Task<ActionResult<AppUser>> GetUser(int id)
+        {
+            return await _dataContext.Users.FindAsync(id);
+        }
+        #endregion
     }
 }

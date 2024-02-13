@@ -1,5 +1,6 @@
 using API.Entities;
 using API.Repositories;
+using Microsoft.AspNetCore.Mvc;
 
 namespace API.Services;
 
@@ -16,13 +17,13 @@ public class UsersService: IUsersService
         _repository = repository;
     }
     #endregion
-    public List<AppUser> GetUsers()
+    
+    #region FUNCTIONS
+    public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
     {
         try
         {
-            List<AppUser> users = _repository.GetUsers();
-
-            return users; 
+            return await _repository.GetUsers();
         }
         catch (Exception ex)
         {
@@ -30,4 +31,17 @@ public class UsersService: IUsersService
             // TODO - figure out how to I am going to handle errors, remove above line
         }
     }
+
+    public async Task<ActionResult<AppUser>> GetUser(int id)
+    {
+        try
+        {
+            return await _repository.GetUser(id);
+        }
+        catch (Exception ex)
+        {
+            return new AppUser();
+        }
+    }
+    #endregion
 }

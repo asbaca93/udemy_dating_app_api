@@ -20,12 +20,19 @@ namespace API.Controllers
         }
         #endregion
 
+        #region API_CALLS
         [HttpGet]
-        public List<AppUser> GetUsers()
+        public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
         {
-            List<AppUser> users = _service.GetUsers();
-            return users;
+            return await _service.GetUsers();
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<AppUser>> GetUser(int id)
+        {
+            return await _service.GetUser(id);
+        }
+        #endregion
     }
 }
 
