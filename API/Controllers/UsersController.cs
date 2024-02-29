@@ -1,13 +1,10 @@
-using API.Data;
 using API.Entities;
 using API.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class UsersController: ControllerBase
+    public class UsersController: BaseApiController
     {
         #region DECLARATION
         private readonly IUsersService _service;
